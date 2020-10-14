@@ -4,25 +4,17 @@
 /// - a [String] to pick values from a [Map]
 /// - or [int] when you want to pick a value at index from a [List]
 Pick pick(
-  /*Map?|List?*/ dynamic json, [
-  dynamic arg0,
-  dynamic arg1,
-  dynamic arg2,
-  dynamic arg3,
-  dynamic arg4,
-  dynamic arg5,
-  dynamic arg6,
-  dynamic arg7,
-  dynamic arg8,
-  dynamic arg9,
-]) {
+  /*Map?|List?*/ dynamic json,
+  List args,
+) {
   final selectors =
-      <dynamic>[arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]
-          // null is a sign for unused 'varargs'
-          .where((dynamic it) => it != null)
-          .toList(growable: false);
+      args.where((dynamic it) => it != null).toList(growable: false);
   return _drillDown(json, selectors);
 }
+
+Pick pickd(/*Map?|List?*/ dynamic json, String args,
+        [String separator = '.']) =>
+    pick(json, args.split(separator));
 
 Pick _drillDown(dynamic json, List<dynamic> selectors,
     {List<dynamic> parentPath = const [], Map<String, dynamic> context}) {
